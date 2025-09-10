@@ -42,7 +42,7 @@
 
         function calcTime() {
             if (secLeft < 0) {
-                secLeft = secEvent - sec;
+                secLeft = secLeft + 60;
                 minLeft--;
             }
 
@@ -82,6 +82,7 @@
 
         let intervalId = setInterval(function() {
             calcTime();
+            secLeft--;
             numDisp.textContent = yearLeft + ":" + monLeft + ":" + dayLeft + ":" + hourLeft + ":" + minLeft + ":" + secLeft;
         }, 1000);
 
