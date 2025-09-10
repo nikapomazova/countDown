@@ -35,42 +35,55 @@
 
         var yearLeft = yearEvent - year;
         var monLeft = monEvent - mon;
-        if (monLeft<0) {
-            monLeft = monLeft + 12;
-            yearLeft--;
-        }
-
         var dayLeft = dayEvent - day;
-        if (dayLeft<0) {
-            if (mon === 1 || mon === 3 || mon === 5 || mon === 7 || mon === 8 || mon === 10 || mon === 12 ) {
-                dayLeft = dayLeft + 31;
-            } else if (mon === 4 || mon === 6 || mon === 9 || mon === 11) {
-                dayLeft = dayLeft + 30;
-            } else if (year % 4 === 0){
-                dayLeft = dayLeft + 29;
-            } else {
-                dayLeft = dayLeft + 28;
-            }
-            monLeft--;
-        }
         var hourLeft = hourEvent - hour;
-        if (hourLeft<0) {
-            hourLeft = hourLeft + 24;
-            dayLeft--;
-        }
-        var minLeft = minEvent-min;
-        if (minLeft<0) {
-            minLeft = minLeft + 60
-            hourLeft--;
-        }
+        var minLeft = minEvent - min;
         var secLeft = secEvent - sec;
-        if (secLeft<0) {
-            secLeft = secEvent - sec;
-            minLeft--;
+
+        function calcTime() {
+            if (secLeft < 0) {
+                secLeft = secEvent - sec;
+                minLeft--;
+            }
+
+            if (minLeft < 0) {
+                minLeft = minLeft + 60;
+                hourLeft--;
+            }
+
+            if (hourLeft < 0) {
+                hourLeft = hourLeft + 24;
+                dayLeft--;
+            }
+
+            if (dayLeft < 0) {
+                if (mon === 1 || mon === 3 || mon === 5 || mon === 7 || mon === 8 || mon === 10 || mon === 12 ) {
+                    dayLeft = dayLeft + 31;
+                } else if (mon === 4 || mon === 6 || mon === 9 || mon === 11) {
+                    dayLeft = dayLeft + 30;
+                } else if (year % 4 === 0) {
+                    dayLeft = dayLeft + 29;
+                } else {
+                    dayLeft = dayLeft + 28;
+                }
+                monLeft--;
+            }
+
+            if (monLeft < 0) {
+                monLeft = monLeft + 12;
+                yearLeft--;
+            }
         }
+        
+        calcTime();
 
         const numDisp = document.getElementById("numberDays");
         numDisp.textContent = yearLeft + ":" + monLeft + ":" + dayLeft + ":" + hourLeft + ":" + minLeft + ":" + secLeft;
+
+        let intervalId = setInterval(function() {
+            calcTime();
+            numDisp.textContent = yearLeft + ":" + monLeft + ":" + dayLeft + ":" + hourLeft + ":" + minLeft + ":" + secLeft;
+        }, 1000);
 
     </script>
 </body>
