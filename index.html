@@ -15,7 +15,7 @@
 <body>
     <h1>There are</h1>
     <p id="numberDays">0</p>
-    <h1>days until we meet!</h1>
+    <h1>left until we meet!</h1>
     <script>
         const now = new Date();
 
@@ -40,22 +40,52 @@
         var minLeft = minEvent - min;
         var secLeft = secEvent - sec;
 
+        const numDisp = document.getElementById("numberDays");
+        let yearLeftStr = "";
+        let monLeftStr = "";
+        let dayLeftStr = "";
+        let hourLeftStr = "";
+        let minLeftStr = "";
+        let secLeftStr = "";
+
         function calcTime() {
+
+            secLeft--;
+
+            secLeftStr = secLeft + " seconds";
             if (secLeft < 0) {
                 secLeft = secLeft + 60;
                 minLeft--;
+                secLeftStr = secLeft + " seconds";
+            } else if (secLeft === 1) {
+                secLeftStr = secLeft + " second";
+            } else if (secLeft === 0) {
+                secLeftStr = "";
             }
 
+            minLeftStr = minLeft + " minutes, ";
             if (minLeft < 0) {
                 minLeft = minLeft + 60;
                 hourLeft--;
+                minLeftStr = minLeft + " minutes, ";
+            } else if (minLeft === 1) {
+                minLeftStr = minLeft + " minute, ";
+            } else if (minLeft === 0) {
+                minLeftStr = "";
             }
 
+            hourLeftStr = hourLeft + " hours, ";
             if (hourLeft < 0) {
                 hourLeft = hourLeft + 24;
                 dayLeft--;
+                hourLeftStr = hourLeft + " hours, ";
+            } else if (hourLeft === 1) {
+                hourLeftStr = hourLeft + " hour, ";
+            } else if (hourLeft === 0) {
+                hourLeftStr = "";
             }
 
+            dayLeftStr = dayLeft + " days, ";
             if (dayLeft < 0) {
                 if (mon === 1 || mon === 3 || mon === 5 || mon === 7 || mon === 8 || mon === 10 || mon === 12 ) {
                     dayLeft = dayLeft + 31;
@@ -67,24 +97,39 @@
                     dayLeft = dayLeft + 28;
                 }
                 monLeft--;
+                dayLeftStr = dayLeft + " days, ";
+            } else if (dayLeft === 1) {
+                dayLeftStr = dayLeft + " day, ";
+            } else if (dayLeft === 0) {
+                dayLeftStr = "";
             }
 
+            monLeftStr = monLeft + " months, ";
             if (monLeft < 0) {
                 monLeft = monLeft + 12;
                 yearLeft--;
+                monLeftStr = monLeft + " months, ";
+            } else if (monLeft === 1) {
+                monLeftStr = monLeft + " month, ";
+            } else if (monLeft === 0) {
+                monLeftStr = "";
             }
+
+            if (yearLeft === 0) {
+                yearLeftStr = "";
+            } else if (yearLeft === 1) {
+                yearLeftStr = yearLeft + " year, ";
+            } else {
+                yearLeftStr = yearLeft + " years, ";
+            }
+
+            numDisp.textContent = yearLeftStr + monLeftStr + dayLeftStr + hourLeftStr + minLeftStr + secLeftStr;
         }
-        
+
         calcTime();
 
-        const numDisp = document.getElementById("numberDays");
-        numDisp.textContent = yearLeft + ":" + monLeft + ":" + dayLeft + ":" + hourLeft + ":" + minLeft + ":" + secLeft;
+        let intervalId = setInterval(calcTime, 1000);
 
-        let intervalId = setInterval(function() {
-            calcTime();
-            secLeft--;
-            numDisp.textContent = yearLeft + ":" + monLeft + ":" + dayLeft + ":" + hourLeft + ":" + minLeft + ":" + secLeft;
-        }, 1000);
 
     </script>
 </body>
