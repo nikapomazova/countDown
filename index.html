@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <title>Countdown!</title>
+
+</head>
+<body>
+    <h1>There are</h1>
+    <p id="numberDays">0</p>
+    <h1>days until we meet!</h1>
+    <script>
+        const now = new Date();
+
+        const year = now.getFullYear();
+        const mon = now.getMonth() + 1; //+ 1 cuz jan is 0
+        const day = now.getDate();
+        const hour = now.getHours();
+        const min = now.getMinutes();
+        const sec = now.getSeconds()
+
+        const yearEvent = 2025;
+        const monEvent = 10;
+        const dayEvent = 10;
+        const hourEvent = 22;
+        const minEvent = 0;
+        const secEvent = 0;
+
+        var yearLeft = yearEvent - year;
+        var monLeft = monEvent - mon;
+        if (monLeft<0) {
+            monLeft = monLeft + 12;
+            yearLeft--;
+        }
+
+        var dayLeft = dayEvent - day;
+        if (dayLeft<0) {
+            if (mon === 1 || mon === 3 || mon === 5 || mon === 7 || mon === 8 || mon === 10 || mon === 12 ) {
+                dayLeft = dayLeft + 31;
+            } else if (mon === 4 || mon === 6 || mon === 9 || mon === 11) {
+                dayLeft = dayLeft + 30;
+            } else if (year % 4 === 0){
+                dayLeft = dayLeft + 29;
+            } else {
+                dayLeft = dayLeft + 28;
+            }
+            monLeft--;
+        }
+        var hourLeft = hourEvent - hour;
+        if (hourLeft<0) {
+            hourLeft = hourLeft + 24;
+            dayLeft--;
+        }
+        var minLeft = minEvent-min;
+        if (minLeft<0) {
+            minLeft = minLeft + 60
+            hourLeft--;
+        }
+        var secLeft = secEvent - sec;
+        if (secLeft<0) {
+            secLeft = secEvent - sec;
+            minLeft--;
+        }
+
+        const numDisp = document.getElementById("numberDays");
+        numDisp.textContent = yearLeft + ":" + monLeft + ":" + dayLeft + ":" + hourLeft + ":" + minLeft + ":" + secLeft;
+
+    </script>
+</body>
+</html>
