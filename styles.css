@@ -14,12 +14,23 @@ body {
     align-items: center;
     height: auto;
     margin: 5vh;
-    font-family: "Sour Gummy"; /*for inheriting the font*/
+    font-family: "Sour Gummy";
+    font-weight: 300;
     font-optical-sizing: auto;
 }
 
 h1 {
     color:#520b13;
+    text-align: center;
+    position: relative;
+    top: 2vh;
+    font-size:10vh;
+    margin: 5vh 0 3vh 0;
+}
+
+p {
+    color:#520b13;
+    font-weight: 700;
     text-align: center;
     position: relative;
     top: 2vh;
